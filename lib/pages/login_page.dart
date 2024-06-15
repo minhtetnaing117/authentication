@@ -1,3 +1,4 @@
+import 'package:authentication/components/my_textfield.dart';
 import 'package:flutter/material.dart';
 
 
@@ -36,8 +37,12 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 50),
 
               // username
+              MyTextfield(),
+
+              const SizedBox(height: 10),
 
               // pass
+              MyTextfield(),
 
               // forgot pass
 
