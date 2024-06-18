@@ -5,36 +5,36 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final Function()? onTap;
 
-  const LoginPage({
+  const RegisterPage({
     super.key,
     required this.onTap,
   });
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // sign user in method
-  void signUserIn() async{
+  // sign user up method
+  void signUserUp() async{
     // show loading circle
     showDialog(
-        context: context,
-        builder: (context){
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+      context: context,
+      builder: (context){
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
 
-    // try sign in
+    // try creating the user
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
@@ -65,18 +65,18 @@ class _LoginPageState extends State<LoginPage> {
   // wrong email message popup
   void showErrorMessage(String message){
     showDialog(
-        context: context,
-        builder: (context){
-          return AlertDialog(
-            backgroundColor: Colors.deepPurple,
-            title: Center(
-                child: Text(
-                  message,
-                  style: const TextStyle(color: Colors.white),
-                ),
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          backgroundColor: Colors.deepPurple,
+          title: Center(
+            child: Text(
+              message,
+              style: const TextStyle(color: Colors.white),
             ),
-          );
-        },
+          ),
+        );
+      },
     );
   }
 
@@ -109,22 +109,22 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 50),
+                const SizedBox(height: 25),
 
                 // logo
                 const Icon(
                   Icons.lock,
-                  size: 100,
+                  size: 50,
                 ),
 
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 25),
 
-                // welcome back, you've been missed!
+                // Let's create an account for you!
                 Text(
-                    "Welcome back you've been missed!",
+                  "Let's create an account for you!",
                   style: TextStyle(
-                      color: Colors.grey[700],
+                    color: Colors.grey[700],
                     fontSize: 16,
                   ),
                 ),
@@ -149,6 +149,15 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 10),
 
+                // confirm pass
+                MyTextfield(
+                  controller: passwordController,
+                  hintText: 'Confirm Password',
+                  obscureText: true,
+                ),
+
+                const SizedBox(height: 10),
+
                 // forgot pass
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -156,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                          'Forgot Password?',
+                        'Forgot Password?',
                         style: TextStyle(color: Colors.grey[600]),
                       ),
                     ],
@@ -167,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 //sign in
                 MyButton(
-                  onTap: signUserIn,
+                  onTap: signUserUp,
                 ),
 
                 const SizedBox(height: 50),
@@ -186,7 +195,7 @@ class _LoginPageState extends State<LoginPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
-                            "Or continue with",
+                          "Or continue with",
                           style: TextStyle(color: Colors.grey[700]),
                         ),
                       ),
@@ -229,18 +238,18 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                        "Not a member?",
+                      "Already have an account?",
                       style: TextStyle(
-                        color: Colors.grey[700]
+                          color: Colors.grey[700]
                       ),
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: const Text(
-                        "Register now",
+                        "Login now",
                         style: TextStyle(
-                          color: Colors.blue, fontWeight: FontWeight.bold
+                            color: Colors.blue, fontWeight: FontWeight.bold
                         ),
                       ),
                     ),
